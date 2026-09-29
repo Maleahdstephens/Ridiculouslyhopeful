@@ -1,0 +1,22 @@
+# Serves the static ridiculouslyhopeful.com site on Railway.
+# Railway injects $PORT; fall back to 80 for local docker runs.
+{
+	admin off
+	auto_https off
+}
+
+:{$PORT:80} {
+	root * /srv
+	encode gzip zstd
+
+	# Clean URLs: /about -> /about/index.html, /page -> /page.html
+	try_files {path} {path}/index.html {path}.html
+
+	file_server
+
+	# Friendly 404 if the mirror has a 404 page; otherwise Caddy's default.
+	handle_errors {
+		rewrite * /404.html
+		file_server
+	}
+}
