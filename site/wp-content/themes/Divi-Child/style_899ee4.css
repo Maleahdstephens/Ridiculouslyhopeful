@@ -14,3 +14,5 @@
 
 /* ==== Add your own styles below this line ====
  * -------------------------------------------- */
+/* static-site fix: blurb links keep the white text color */
+.et_pb_blurb_description a{color:inherit;text-decoration:underline}
